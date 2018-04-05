@@ -1,7 +1,6 @@
 module TestListExtra exposing (suite)
 
 import Expect
-import Fuzz exposing (Fuzzer, int, list, string)
 import Test exposing (..)
 
 import ListExtra exposing (..)
