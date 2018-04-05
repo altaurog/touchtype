@@ -29,6 +29,7 @@ suite =
               |> Expect.equal [Just 1, Just 2, Nothing]
       ]
 
+    -----------------------------------------------------------------
     , describe "leftZip"
       [ test "pad equal length lists" <|
           \_ ->
@@ -47,5 +48,26 @@ suite =
             [1]
               |> ListExtra.leftZip ['a', 'b']
               |> Expect.equal [('a', Just 1), ('b', Nothing)]
+      ]
+
+    -----------------------------------------------------------------
+    , describe "outerZip"
+      [ test "pad equal length lists" <|
+          \_ ->
+            [1, 2]
+              |> ListExtra.outerZip ['a', 'b']
+              |> Expect.equal [(Just 'a', Just 1), (Just 'b', Just 2)]
+
+      , test "pad left shorter" <|
+          \_ ->
+            [1, 2]
+              |> ListExtra.outerZip ['a']
+              |> Expect.equal [(Just 'a', Just 1), (Nothing, Just 2)]
+
+      , test "pad right shorter" <|
+          \_ ->
+            [1]
+              |> ListExtra.outerZip ['a', 'b']
+              |> Expect.equal [(Just 'a', Just 1), (Just 'b', Nothing)]
       ]
     ]

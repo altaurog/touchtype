@@ -7,6 +7,14 @@ leftZip xs =
     >> zip xs
 
 
+outerZip : List a -> List b -> List (Maybe a, Maybe b)
+outerZip xs ys =
+  let
+    l = max (List.length xs) (List.length ys)
+  in
+    zip (pad l xs) (pad l ys)
+
+
 pad : Int -> List a -> List (Maybe a)
 pad len xs =
   let
