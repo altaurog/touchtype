@@ -28,4 +28,24 @@ suite =
               |> ListExtra.pad 3
               |> Expect.equal [Just 1, Just 2, Nothing]
       ]
+
+    , describe "leftZip"
+      [ test "pad equal length lists" <|
+          \_ ->
+            [1, 2]
+              |> ListExtra.leftZip ['a', 'b']
+              |> Expect.equal [('a', Just 1), ('b', Just 2)]
+
+      , test "pad left shorter" <|
+          \_ ->
+            [1, 2]
+              |> ListExtra.leftZip ['a']
+              |> Expect.equal [('a', Just 1)]
+
+      , test "pad right shorter" <|
+          \_ ->
+            [1]
+              |> ListExtra.leftZip ['a', 'b']
+              |> Expect.equal [('a', Just 1), ('b', Nothing)]
+      ]
     ]
