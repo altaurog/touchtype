@@ -7,6 +7,14 @@ leftZip xs =
     >> zip xs
 
 
+rightZip : List a -> List b -> List (Maybe a, b)
+rightZip xs ys =
+  let
+    pxs = pad (List.length ys) xs
+  in
+    zip pxs ys
+
+
 outerZip : List a -> List b -> List (Maybe a, Maybe b)
 outerZip xs ys =
   let
