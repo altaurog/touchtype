@@ -56,4 +56,38 @@ suite =
             TouchType.checkLine ("The ", Nothing)
               |> Expect.equal []
       ]
+
+    , describe "appendToLast"
+      [ test "append regular character" <|
+          \_ ->
+            TouchType.appendToLast 120 ["The quick", "brown fo"]
+              |> Expect.equal ["The quick", "brown fox"]
+
+      , test "append carriage return" <|
+          \_ ->
+            TouchType.appendToLast 13 ["The quick", "brown fox"]
+              |> Expect.equal ["The quick", "brown fox", ""]
+
+      , test "append initial carriage return" <|
+          \_ ->
+            TouchType.appendToLast 13 []
+              |> Expect.equal []
+      ]
+
+    , test "append" <|
+        \_ ->
+          TouchType.append 113 "The "
+            |> Expect.equal "The q"
+
+    , describe "codeToString"
+      [ test "printable char" <|
+          \_ ->
+            TouchType.codeToString 113
+              |> Expect.equal "q"
+
+      , test "nonprintable char" <|
+          \_ ->
+            TouchType.codeToString 9
+              |> Expect.equal ""
+      ]
     ]
