@@ -1,6 +1,6 @@
 module TouchType exposing (..)
 
-{-| This module provides business logic for touchtype app
+{-| Business logic for touchtype app
 -}
 
 import ListExtra
