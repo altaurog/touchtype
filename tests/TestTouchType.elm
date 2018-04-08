@@ -36,6 +36,11 @@ suite =
             TouchType.checkLine ("The ", Just "Th")
               |> Expect.equal [(Ok 'T'), (Ok 'h')]
 
+      , test "checkLine excess" <|
+          \_ ->
+            TouchType.checkLine ("The ", Just "The q")
+              |> Expect.equal [(Ok 'T'), (Ok 'h'), (Ok 'e'), (Ok ' '), (Err 'q')]
+
       , test "checkLine incorrect but complete" <|
           \_ ->
             TouchType.checkLine ("The ", Just "Tha ")
