@@ -9,10 +9,8 @@ leftZip xs =
 
 rightZip : List a -> List b -> List (Maybe a, b)
 rightZip xs ys =
-  let
-    pxs = pad (List.length ys) xs
-  in
-    zip pxs ys
+  pad (List.length ys) xs
+    |> (flip zip) ys
 
 
 outerZip : List a -> List b -> List (Maybe a, Maybe b)
