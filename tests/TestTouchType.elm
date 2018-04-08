@@ -29,27 +29,27 @@ suite =
       [ test "checkLine correct and complete" <|
           \_ ->
             TouchType.checkLine ("The ", Just "The ")
-              |> Expect.equal [(Ok 'T'), (Ok 'h'), (Ok 'e'), (Ok ' ')]
+              |> Expect.equal [Ok 'T', Ok 'h', Ok 'e', Ok ' ']
 
       , test "checkLine correct but incomplete" <|
           \_ ->
             TouchType.checkLine ("The ", Just "Th")
-              |> Expect.equal [(Ok 'T'), (Ok 'h')]
+              |> Expect.equal [Ok 'T', Ok 'h']
 
       , test "checkLine excess" <|
           \_ ->
             TouchType.checkLine ("The ", Just "The q")
-              |> Expect.equal [(Ok 'T'), (Ok 'h'), (Ok 'e'), (Ok ' '), (Err 'q')]
+              |> Expect.equal [Ok 'T', Ok 'h', Ok 'e', Ok ' ', Err 'q']
 
       , test "checkLine incorrect but complete" <|
           \_ ->
             TouchType.checkLine ("The ", Just "Tha ")
-              |> Expect.equal [(Ok 'T'), (Ok 'h'), (Err 'a'), (Ok ' ')]
+              |> Expect.equal [Ok 'T', Ok 'h', Err 'a', Ok ' ']
 
       , test "checkLine incorrect and incomplete" <|
           \_ ->
             TouchType.checkLine ("The ", Just "Tj")
-              |> Expect.equal [(Ok 'T'), (Err 'j')]
+              |> Expect.equal [Ok 'T', Err 'j']
 
       , test "checkLine empty input" <|
           \_ ->
