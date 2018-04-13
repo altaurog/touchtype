@@ -1,6 +1,14 @@
 module ListExtra exposing (..)
 
 
+map : (a -> Bool -> b) -> List a -> List b
+map f xs =
+  case xs of
+    [hd] -> [f hd True]
+    hd::tl -> [f hd False] ++ map f tl
+    [] -> []
+
+
 leftZip : List a -> List b -> List (a, Maybe b)
 leftZip xs =
   pad (List.length xs)

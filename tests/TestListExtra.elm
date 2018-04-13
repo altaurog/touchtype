@@ -8,7 +8,20 @@ import ListExtra exposing (..)
 suite : Test
 suite =
   describe "Extra list functions"
-    [ describe "pad"
+    [ describe "map"
+      [ test "map with isEnd flag" <|
+        \_ ->
+          ListExtra.map (,) [1, 2, 3, 4]
+            |> Expect.equal [(1, False), (2, False), (3, False), (4, True)]
+
+      , test "map empty list" <|
+        \_ ->
+          ListExtra.map (,) []
+            |> Expect.equal []
+      ]
+
+    -----------------------------------------------------------------
+    , describe "pad"
       [ test "pad to same length" <|
           \_ ->
             [1, 2]
