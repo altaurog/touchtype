@@ -17,8 +17,8 @@ type alias Checked = Result Char Char
 
 {-| Check a line of input against its master
 -}
-checkLine : (String, Maybe String) -> List Checked
-checkLine (master, input) =
+checkLine : String -> Maybe String -> List Checked
+checkLine master input =
   let
     i = Maybe.withDefault "" input
   in

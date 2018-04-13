@@ -24,7 +24,7 @@ exercise master input =
 lineDiv : (String, Maybe String) -> Html msg
 lineDiv (master, input) = div [] [
     div [] [text master],
-    div [] (checkLine (master, input) |> List.map checkedSpan)
+    div [] (checkLine master input |> List.map checkedSpan)
   ]
 
 
