@@ -14,7 +14,7 @@ import Style
 
 exercise : List String -> String -> Html msg
 exercise master input =
-  String.lines input
+  String.lines (input ++ "\0") 
     |> ListExtra.map (,)
     |> ListExtra.leftZip master
     |> List.map lineDiv
@@ -37,6 +37,7 @@ lineDiv (master, inputWithFlag) =
 checkedSpan : Checked -> Html msg
 checkedSpan checked =
   case checked of
+    Err '\0' -> span [Style.cursor] [text " "]
     Ok char -> span [] [charText char]
     Err char -> span [Style.error] [charText char]
 

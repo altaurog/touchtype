@@ -28,6 +28,13 @@ line = cssAttribute <|
     , whiteSpace pre
     ]
 
+cursor : Attribute msg
+cursor = cssAttribute <|
+  Css.batch
+    [ color Css.Colors.green
+    , backgroundColor Css.Colors.green
+    ]
+
 error : Attribute msg
 error = cssAttribute <|
   Css.batch
