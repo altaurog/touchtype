@@ -1,6 +1,6 @@
-all: app/app.js
+all: app/index.html
 
-app/app.js: src/App.elm src/HtmlDisplay.elm src/TouchType.elm src/ListExtra.elm
+app/index.html: src/App.elm src/HtmlDisplay.elm src/TouchType.elm src/ListExtra.elm src/Style.elm
 	elm make --output $@ $<
 
 test:
