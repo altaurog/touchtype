@@ -2,28 +2,34 @@ module Style exposing (..)
 
 import Css exposing (..)
 import Css.Colors
+import Html.Styled exposing (Attribute)
+import Html.Styled.Attributes exposing (css)
 
+cssAttribute : Style -> Attribute msg
+cssAttribute style = css [ style ]
 
-page : Style
-page = 
+page : Attribute msg
+page = cssAttribute <|
   Css.batch
     [ fontFamilies ["Monospace"]
     , fontSize (pt 14)
     , margin (px 0)
     ]
 
-exercise : Style
-exercise = Css.batch [ marginBottom (em 1.5) ]
+exercise : Attribute msg
+exercise = cssAttribute <|
+  Css.batch
+    [ marginBottom (em 1.5) ]
 
-line : Style
-line =
+line : Attribute msg
+line = cssAttribute <|
   Css.batch
     [ height (em 1)
     , whiteSpace pre
     ]
 
-error : Style
-error =
+error : Attribute msg
+error = cssAttribute <|
   Css.batch
     [ color Css.Colors.red
     , borderBottom3 (px 1) solid Css.Colors.red

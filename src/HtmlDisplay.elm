@@ -4,7 +4,6 @@ module HtmlDisplay exposing (..)
 -}
 
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css)
 
 import ListExtra
 import TouchType exposing (Checked, checkLine)
@@ -18,16 +17,16 @@ exercise master input =
    ListExtra.map (,) input
     |> ListExtra.leftZip master
     |> List.map lineDiv
-    |> div [ css [Style.page] ]
+    |> div [Style.page]
 
 
 {-| Display a master input line pair
 -}
 lineDiv : (String, Maybe (String, Bool)) -> Html msg
 lineDiv (master, inputWithFlag) = 
-  div [ css [Style.exercise] ]
-  [ div [ css [Style.line] ] [text master]
-  , div [ css [Style.line] ] (checkLine master inputWithFlag |> List.map checkedSpan)
+  div [Style.exercise]
+  [ div [Style.line] [text master]
+  , div [Style.line] (checkLine master inputWithFlag |> List.map checkedSpan)
   ]
 
 
@@ -38,7 +37,7 @@ checkedSpan : Checked -> Html msg
 checkedSpan checked =
   case checked of
     Ok char -> span [] [charText char]
-    Err char -> span [ css [Style.error] ] [charText char]
+    Err char -> span [Style.error] [charText char]
 
 
 {-| Convert a char to Html text element

@@ -4,7 +4,6 @@ import Expect
 import Test exposing (..)
 
 import Html.Styled exposing (Html, Attribute, div, span, text)
-import Html.Styled.Attributes exposing (css)
 
 import HtmlDisplay exposing (..)
 import Style
@@ -28,19 +27,19 @@ suite =
       , test "convert incorrect char to span" <|
           \_ ->
             HtmlDisplay.checkedSpan (Err 'a')
-              |> Expect.equal (span [ css [ Style.error ] ] [text "a"])
+              |> Expect.equal (span [Style.error] [text "a"])
       ]
 
     , describe "lineDiv"
       [ test "convert master/input text to html" <|
           \_ ->
             HtmlDisplay.lineDiv ("I am", Just ("I mm", True))
-              |> Expect.equal (div [ css [ Style.exercise ] ] [
-                  div [ css [ Style.line ] ] [text "I am"],
-                  div [ css [ Style.line ] ] [
+              |> Expect.equal (div [Style.exercise] [
+                  div [Style.line] [text "I am"],
+                  div [Style.line] [
                     span [] [text "I"],
                     span [] [text " "],
-                    span [ css [ Style.error ] ] [text "m"],
+                    span [Style.error] [text "m"],
                     span [] [text "m"]
                   ]
                 ])
