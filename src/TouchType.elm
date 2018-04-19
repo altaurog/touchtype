@@ -37,18 +37,6 @@ checkChar isLast pair =
     _ -> Ok ' ' -- this should never happen
 
 
-{-| Append a char to last string in input set
--}
-appendToLast : Char.KeyCode -> List String -> List String
-appendToLast code xs =
-  case (code, xs) of
-    (13, [head]) -> [head, ""]      -- add line on CR
-    (13, []) -> []                  -- ignore CR at beginning
-    (c, []) -> [append c ""]
-    (c, [head]) -> [append c head]  -- empty tail must take precedence
-    (c, head::tail) -> [head] ++ appendToLast c tail
-
-
 {-| Append char to a string
 -}
 append : Char.KeyCode -> String -> String
@@ -62,4 +50,5 @@ codeToString code =
   if 31 < code && code < 127 then
     Char.fromCode code |> String.fromChar
   else
-    ""
+    if 13 == code then "\n" else ""
+

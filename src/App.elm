@@ -19,7 +19,7 @@ main =
 
 type alias Model =
   { master : List String
-  , input : List String
+  , input : String
   }
 
 init : (Model, Cmd Msg)
@@ -29,7 +29,7 @@ init =
       , "jumped over the"
       , "lazy brown dog"
       ]
-    , input = []
+    , input = ""
     }
   , Cmd.none
   )
@@ -50,9 +50,7 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Presses code ->
-      ( { model
-        | input = TouchType.appendToLast code model.input
-        }
+      ( { model | input = TouchType.append code model.input }
       , Cmd.none
       )
 

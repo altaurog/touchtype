@@ -78,23 +78,6 @@ suite =
               |> Expect.equal []
       ]
 
-    , describe "appendToLast"
-      [ test "append regular character" <|
-          \_ ->
-            TouchType.appendToLast 120 ["The quick", "brown fo"]
-              |> Expect.equal ["The quick", "brown fox"]
-
-      , test "append carriage return" <|
-          \_ ->
-            TouchType.appendToLast 13 ["The quick", "brown fox"]
-              |> Expect.equal ["The quick", "brown fox", ""]
-
-      , test "append initial carriage return" <|
-          \_ ->
-            TouchType.appendToLast 13 []
-              |> Expect.equal []
-      ]
-
     , test "append" <|
         \_ ->
           TouchType.append 113 "The "

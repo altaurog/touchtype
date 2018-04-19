@@ -12,9 +12,10 @@ import Style
 {-| Display an exercise
 -}
 
-exercise : List String -> List String -> Html msg
+exercise : List String -> String -> Html msg
 exercise master input =
-   ListExtra.map (,) input
+  String.lines input
+    |> ListExtra.map (,)
     |> ListExtra.leftZip master
     |> List.map lineDiv
     |> div [Style.page]
