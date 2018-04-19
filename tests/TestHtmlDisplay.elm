@@ -33,7 +33,7 @@ suite =
     , describe "lineDiv"
       [ test "convert master/input text to html" <|
           \_ ->
-            HtmlDisplay.lineDiv ("I am", Just "I mm")
+            HtmlDisplay.lineDiv ("I am", Just ("I mm", True))
               |> Expect.equal (div [] [
                   div [] [text "I am"],
                   div [] [

@@ -14,17 +14,18 @@ import TouchType exposing (Checked, checkLine)
 
 exercise : List String -> List String -> Html msg
 exercise master input =
-  ListExtra.leftZip master input
+   ListExtra.map (,) input
+    |> ListExtra.leftZip master
     |> List.map lineDiv
     |> div [class "exercise"]
 
 
 {-| Display a master input line pair
 -}
-lineDiv : (String, Maybe String) -> Html msg
-lineDiv (master, input) = div [] [
+lineDiv : (String, Maybe (String, Bool)) -> Html msg
+lineDiv (master, inputWithFlag) = div [] [
     div [] [text master],
-    div [] (checkLine master input |> List.map checkedSpan)
+    div [] (checkLine master inputWithFlag |> List.map checkedSpan)
   ]
 
 

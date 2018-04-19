@@ -17,22 +17,24 @@ type alias Checked = Result Char Char
 
 {-| Check a line of input against its master
 -}
-checkLine : String -> Maybe String -> List Checked
-checkLine master input =
-  let
-    i = Maybe.withDefault "" input
-  in
-    ListExtra.rightZip (String.toList master) (String.toList i)
-      |> List.map checkChar
+checkLine : String -> Maybe (String, Bool) -> List Checked
+checkLine master inputWithFlag =
+  case inputWithFlag of
+    Nothing -> []
+    Just (input, isLast) ->
+      ListExtra.outerZip (String.toList master) (String.toList input)
+        |> List.map (checkChar isLast)
 
 
 {-| Check a (master, input) character pair.
 -}
-checkChar : (Maybe Char, Char) -> Checked
-checkChar pair =
+checkChar : Bool -> (Maybe Char, Maybe Char) -> Checked
+checkChar isLast pair =
   case pair of
-    (Just m, i) -> if i == m then Ok i else Err i
-    (Nothing, i) -> Err i
+    (Just m, Just i) -> if i == m then Ok i else Err i
+    (Nothing, Just i) -> Err i
+    (Just m, Nothing) -> if isLast then Ok ' ' else Err ' '
+    _ -> Ok ' ' -- this should never happen
 
 
 {-| Append a char to last string in input set
