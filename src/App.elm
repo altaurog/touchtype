@@ -1,5 +1,5 @@
 import Char
-import Html exposing (Html)
+import Html.Styled
 import Keyboard
 
 import HtmlDisplay
@@ -7,7 +7,7 @@ import TouchType
 
 
 main =
-  Html.program
+  Html.Styled.program
     { init = init
     , subscriptions = subscriptions
     , update = update
@@ -59,6 +59,6 @@ update msg model =
 
 -- VIEW
 
-view : Model -> Html Msg
+view : Model -> Html.Styled.Html Msg
 view model =
   HtmlDisplay.exercise model.master model.input

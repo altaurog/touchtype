@@ -3,10 +3,11 @@ module TestHtmlDisplay exposing (suite)
 import Expect
 import Test exposing (..)
 
-import Html exposing (Html, Attribute, div, span, text)
-import Html.Attributes exposing (class)
+import Html.Styled exposing (Html, Attribute, div, span, text)
+import Html.Styled.Attributes exposing (css)
 
 import HtmlDisplay exposing (..)
+import Style
 
 suite : Test
 suite =
@@ -22,25 +23,25 @@ suite =
       [ test "convert correct char to span" <|
           \_ ->
             HtmlDisplay.checkedSpan (Ok 'a')
-              |> Expect.equal (span [class "ok char"] [text "a"])
+              |> Expect.equal (span [] [text "a"])
 
       , test "convert incorrect char to span" <|
           \_ ->
             HtmlDisplay.checkedSpan (Err 'a')
-              |> Expect.equal (span [class "error char"] [text "a"])
+              |> Expect.equal (span [ css [ Style.error ] ] [text "a"])
       ]
 
     , describe "lineDiv"
       [ test "convert master/input text to html" <|
           \_ ->
             HtmlDisplay.lineDiv ("I am", Just ("I mm", True))
-              |> Expect.equal (div [] [
-                  div [] [text "I am"],
-                  div [] [
-                    span [class "ok char"] [text "I"],
-                    span [class "ok char"] [text " "],
-                    span [class "error char"] [text "m"],
-                    span [class "ok char"] [text "m"]
+              |> Expect.equal (div [ css [ Style.exercise ] ] [
+                  div [ css [ Style.line ] ] [text "I am"],
+                  div [ css [ Style.line ] ] [
+                    span [] [text "I"],
+                    span [] [text " "],
+                    span [ css [ Style.error ] ] [text "m"],
+                    span [] [text "m"]
                   ]
                 ])
       ]
