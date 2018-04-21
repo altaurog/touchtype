@@ -9,10 +9,9 @@ import ListExtra exposing (OuterZipItem(..))
 
 
 {-| A checked input is either ok or erroneous.
-We reappropriate `Result` for this purpose;
-Ok and Err values are both the input character.
 -}
-type alias Checked = Result Char Char
+type CheckedVal a = Good a | Bad a | Missing
+type alias Checked = CheckedVal Char
 
 
 {-| Check a line of input against its master
@@ -31,9 +30,9 @@ checkLine master inputWithFlag =
 checkChar : Bool -> ListExtra.OuterZipItem Char Char -> Checked
 checkChar isLast pair =
   case pair of
-    Both m i -> if i == m then Ok i else Err i
-    Right i -> Err i
-    Left m -> if isLast then Ok ' ' else Err ' '
+    Both m i -> if i == m then Good i else Bad i
+    Right i -> Bad i
+    Left m -> if isLast then Good ' ' else Missing
 
 
 {-| Append char to a string

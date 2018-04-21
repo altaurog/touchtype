@@ -6,7 +6,7 @@ module HtmlDisplay exposing (..)
 import Html.Styled exposing (..)
 
 import ListExtra
-import TouchType exposing (Checked, checkLine)
+import TouchType exposing (CheckedVal(..), Checked, checkLine)
 import Style
 
 {-| Display an exercise
@@ -37,9 +37,10 @@ lineDiv (master, inputWithFlag) =
 checkedSpan : Checked -> Html msg
 checkedSpan checked =
   case checked of
-    Err '\0' -> span [Style.cursor] [text " "]
-    Ok char -> span [] [charText char]
-    Err char -> span [Style.error] [charText char]
+    Bad '\0' -> span [Style.cursor] [text " "]
+    Good char -> span [] [charText char]
+    Bad char -> span [Style.error] [charText char]
+    Missing -> span [Style.error] [text " "]
 
 
 {-| Convert a char to Html text element

@@ -14,31 +14,31 @@ suite =
           \_ ->
              Both 'a' 'a'
               |> TouchType.checkChar True
-              |> Expect.equal (Ok 'a')
+              |> Expect.equal (Good 'a')
 
       , test "checkChar incorrect char" <|
           \_ ->
             Both 'b' 'a'
               |> TouchType.checkChar False
-              |> Expect.equal (Err 'a')
+              |> Expect.equal (Bad 'a')
 
       , test "checkChar extra char" <|
           \_ ->
             Right 'a'
               |> TouchType.checkChar True
-              |> Expect.equal (Err 'a')
+              |> Expect.equal (Bad 'a')
 
       , test "checkChar missing char not last line" <|
           \_ ->
             Left 'x'
               |> TouchType.checkChar False
-              |> Expect.equal (Err ' ')
+              |> Expect.equal Missing
 
       , test "checkChar missing char last line" <|
           \_ ->
             Left 'x'
               |> TouchType.checkChar True
-              |> Expect.equal (Ok ' ')
+              |> Expect.equal (Good ' ')
       ]
 
     , describe "checkLine"
@@ -46,37 +46,37 @@ suite =
           \_ ->
             Just ("The ", True)
               |> TouchType.checkLine "The "
-              |> Expect.equal [Ok 'T', Ok 'h', Ok 'e', Ok ' ']
+              |> Expect.equal [Good 'T', Good 'h', Good 'e', Good ' ']
 
       , test "checkLine correct but incomplete last line" <|
           \_ ->
             Just ("Th", True)
               |> TouchType.checkLine "The "
-              |> Expect.equal [Ok 'T', Ok 'h', Ok ' ', Ok ' ']
+              |> Expect.equal [Good 'T', Good 'h', Good ' ', Good ' ']
 
       , test "checkLine excess last line" <|
           \_ ->
             Just ("The q", True)
               |> TouchType.checkLine "The "
-              |> Expect.equal [Ok 'T', Ok 'h', Ok 'e', Ok ' ', Err 'q']
+              |> Expect.equal [Good 'T', Good 'h', Good 'e', Good ' ', Bad 'q']
 
       , test "checkLine incorrect but complete last line" <|
           \_ ->
             Just ("Tha ", True)
               |> TouchType.checkLine "The "
-              |> Expect.equal [Ok 'T', Ok 'h', Err 'a', Ok ' ']
+              |> Expect.equal [Good 'T', Good 'h', Bad 'a', Good ' ']
 
       , test "checkLine incorrect and incomplete last line" <|
           \_ ->
             Just ("Tj", True)
               |> TouchType.checkLine "The "
-              |> Expect.equal [Ok 'T', Err 'j', Ok ' ', Ok ' ']
+              |> Expect.equal [Good 'T', Bad 'j', Good ' ', Good ' ']
 
       , test "checkLine correct but incomplete not-last line" <|
           \_ ->
             Just ("Th", False)
               |> TouchType.checkLine "The "
-              |> Expect.equal [Ok 'T', Ok 'h', Err ' ', Err ' ']
+              |> Expect.equal [Good 'T', Good 'h', Missing, Missing]
 
       , test "checkLine no input" <|
           \_ ->

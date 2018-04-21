@@ -7,6 +7,7 @@ import Html.Styled exposing (Html, Attribute, div, span, text)
 
 import HtmlDisplay exposing (..)
 import Style
+import TouchType exposing (CheckedVal(..))
 
 suite : Test
 suite =
@@ -21,12 +22,12 @@ suite =
     , describe "checkedSpan"
       [ test "convert correct char to span" <|
           \_ ->
-            HtmlDisplay.checkedSpan (Ok 'a')
+            HtmlDisplay.checkedSpan (Good 'a')
               |> Expect.equal (span [] [text "a"])
 
       , test "convert incorrect char to span" <|
           \_ ->
-            HtmlDisplay.checkedSpan (Err 'a')
+            HtmlDisplay.checkedSpan (Bad 'a')
               |> Expect.equal (span [Style.error] [text "a"])
       ]
 
