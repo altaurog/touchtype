@@ -5,7 +5,7 @@ module TouchType exposing (..)
 
 import Char
 
-import ListExtra
+import ListExtra exposing (OuterZipItem(..))
 
 
 {-| A checked input is either ok or erroneous.
@@ -31,9 +31,9 @@ checkLine master inputWithFlag =
 checkChar : Bool -> ListExtra.OuterZipItem Char Char -> Checked
 checkChar isLast pair =
   case pair of
-    ListExtra.Both m i -> if i == m then Ok i else Err i
-    ListExtra.Right i -> Err i
-    ListExtra.Left m -> if isLast then Ok ' ' else Err ' '
+    Both m i -> if i == m then Ok i else Err i
+    Right i -> Err i
+    Left m -> if isLast then Ok ' ' else Err ' '
 
 
 {-| Append char to a string
