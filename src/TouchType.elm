@@ -28,13 +28,12 @@ checkLine master inputWithFlag =
 
 {-| Check a (master, input) character pair.
 -}
-checkChar : Bool -> (Maybe Char, Maybe Char) -> Checked
+checkChar : Bool -> ListExtra.OuterZipItem Char Char -> Checked
 checkChar isLast pair =
   case pair of
-    (Just m, Just i) -> if i == m then Ok i else Err i
-    (Nothing, Just i) -> Err i
-    (Just m, Nothing) -> if isLast then Ok ' ' else Err ' '
-    _ -> Ok ' ' -- this should never happen
+    ListExtra.Both m i -> if i == m then Ok i else Err i
+    ListExtra.Right i -> Err i
+    ListExtra.Left m -> if isLast then Ok ' ' else Err ' '
 
 
 {-| Append char to a string

@@ -89,18 +89,18 @@ suite =
           \_ ->
             [1, 2]
               |> ListExtra.outerZip ['a', 'b']
-              |> Expect.equal [(Just 'a', Just 1), (Just 'b', Just 2)]
+              |> Expect.equal [Both 'a' 1, Both 'b' 2]
 
       , test "pad left shorter" <|
           \_ ->
             [1, 2]
               |> ListExtra.outerZip ['a']
-              |> Expect.equal [(Just 'a', Just 1), (Nothing, Just 2)]
+              |> Expect.equal [Both 'a' 1, Right 2]
 
       , test "pad right shorter" <|
           \_ ->
             [1]
               |> ListExtra.outerZip ['a', 'b']
-              |> Expect.equal [(Just 'a', Just 1), (Just 'b', Nothing)]
+              |> Expect.equal [Both 'a' 1, Left 'b']
       ]
     ]

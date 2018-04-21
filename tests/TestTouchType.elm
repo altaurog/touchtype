@@ -3,6 +3,7 @@ module TestTouchType exposing (suite)
 import Expect
 import Test exposing (..)
 
+import ListExtra exposing (..)
 import TouchType exposing (..)
 
 suite : Test
@@ -11,27 +12,32 @@ suite =
     [ describe "checkChar"
       [ test "checkChar correct char" <|
           \_ ->
-            TouchType.checkChar True (Just 'a', Just 'a')
+             Both 'a' 'a'
+              |> TouchType.checkChar True
               |> Expect.equal (Ok 'a')
 
       , test "checkChar incorrect char" <|
           \_ ->
-            TouchType.checkChar False (Just 'b', Just 'a')
+            Both 'b' 'a'
+              |> TouchType.checkChar False
               |> Expect.equal (Err 'a')
 
       , test "checkChar extra char" <|
           \_ ->
-            TouchType.checkChar True (Nothing, Just 'a')
+            Right 'a'
+              |> TouchType.checkChar True
               |> Expect.equal (Err 'a')
 
       , test "checkChar missing char not last line" <|
           \_ ->
-            TouchType.checkChar False (Just ' ', Nothing)
+            Left 'x'
+              |> TouchType.checkChar False
               |> Expect.equal (Err ' ')
 
       , test "checkChar missing char last line" <|
           \_ ->
-            TouchType.checkChar True (Just ' ', Nothing)
+            Left 'x'
+              |> TouchType.checkChar True
               |> Expect.equal (Ok ' ')
       ]
 
