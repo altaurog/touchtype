@@ -46,4 +46,4 @@ checkedSpan checked =
 -}
 
 charText : Char -> Html msg
-charText c = String.fromList [c] |> text
+charText c = String.fromChar c |> text
