@@ -14,7 +14,7 @@ import Style
 
 exercise : List String -> String -> Html msg
 exercise master input =
-  String.lines (input ++ "\0") 
+  String.lines (input ++ "\0")
     |> ListExtra.map (,)
     |> ListExtra.leftZip master
     |> List.map lineDiv
@@ -24,7 +24,7 @@ exercise master input =
 {-| Display a master input line pair
 -}
 lineDiv : (String, Maybe (String, Bool)) -> Html msg
-lineDiv (master, inputWithFlag) = 
+lineDiv (master, inputWithFlag) =
   div [Style.exercise]
   [ div [Style.line] [text master]
   , div [Style.line] (checkLine master inputWithFlag |> List.map checkedSpan)
